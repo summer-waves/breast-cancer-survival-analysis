@@ -2,7 +2,7 @@
 ### The GBSG2 Study — STA 6903 | The University of Texas at San Antonio | Spring 2026
 
 **Contributors:** Eric Cantu & Marco Ortiz  
-**Course:** STA 6903 — Survival Analysis | Instructor: Dr. Han
+**Course:** STA 6903 — Survival Analysis
 
 ---
 
