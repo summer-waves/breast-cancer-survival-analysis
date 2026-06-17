@@ -112,35 +112,35 @@ Wald test statistic: $Z = -0.3506 / 0.1291 = -2.715$, $p = 0.0066$
 ### Figure 1 — Exploratory Data Analysis
 Distributions of age (mean = 53.1 yrs), tumor size (mean = 29.3 mm), and positive lymph nodes (mean = 5.0) — all right-skewed. Hormone receptor levels plotted on log(1+x) scale. Overall event rate: 43.6%.
 
-![Figure 1 - EDA](gbsg2-survival-analysis/figures/fig1_eda.png)
+![Figure 1 - EDA](figures/fig1_eda.png)
 
 ---
 
 ### Figure 2 — Kaplan-Meier Survival Curves
 KM curves stratified by hormone therapy status, menopausal status, and tumor grade. Hormone therapy showed a statistically significant survival benefit (log-rank χ² = 8.565, p = 0.0034). Menopausal status was not significant (p = 0.5966). Grade I tumors had the best survival outcomes.
 
-![Figure 2 - KM Curves](gbsg2-survival-analysis/figures/fig2_km.png)
+![Figure 2 - KM Curves](figures/fig2_km.png)
 
 ---
 
 ### Figure 3 — Forest Plot (Cox PH Hazard Ratios)
 Blue = protective (HR < 1), Red = increased risk (HR > 1). Statistically significant covariates marked with asterisks.
 
-![Figure 3 - Forest Plot](gbsg2-survival-analysis/figures/fig3_forest.png)
+![Figure 3 - Forest Plot](figures/fig3_forest.png)
 
 ---
 
 ### Figure 4 — Model Diagnostics
 **(a–b)** Schoenfeld residuals for hormone therapy and positive lymph nodes show no systematic trend over time — no violation of the proportional hazards assumption detected. **(c)** Log-log KM plot for hormone therapy groups appear approximately parallel, further supporting the PH assumption. **(d)** Weibull probability plot is approximately linear over the primary follow-up range, consistent with Weibull behavior.
 
-![Figure 4 - Diagnostics](gbsg2-survival-analysis/figures/fig4_diagnostics.png)
+![Figure 4 - Diagnostics](figures/fig4_diagnostics.png)
 
 ---
 
 ### Figure 5 — Predicted Cox PH Survival Curves
 Predicted survival for three representative covariate profiles: high-risk (Grade III, 10 nodes, no HT), low-risk (Grade I, 1 node, HT), and a median patient. Clear separation between curves demonstrates strong prognostic stratification.
 
-![Figure 5 - Predicted Survival](gbsg2-survival-analysis/figures/fig5_predicted_survival.png)
+![Figure 5 - Predicted Survival](figures/fig5_predicted_survival.png)
 
 ---
 
@@ -157,7 +157,7 @@ Predicted survival for three representative covariate profiles: high-risk (Grade
 ## Repository Structure
 
 ```
-gbsg2-survival-analysis/
+breast-cancer-survival-analysis/
 │
 ├── GBSG2.csv                                        # Dataset (exported from R)
 ├── Survival_Analysis_Python_Visualizations.ipynb    # Main analysis notebook
