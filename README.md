@@ -54,24 +54,30 @@ The primary clinical question: *Does adjuvant hormone therapy significantly redu
 
 ## Methods
 
-All models were implemented from scratch in Python using `NumPy`, `SciPy`, and `Pandas` — no `lifelines` or dedicated survival library was used.
+Core statistical models were implemented from scratch in Python using `NumPy`, `SciPy`, and `Pandas` to demonstrate the underlying mathematics. Results were then cross-validated using dedicated survival libraries (`lifelines`, `scikit-survival`). Machine learning survival models were added via `scikit-survival`.
 
 ### 1. Kaplan-Meier Estimator
-Non-parametric estimation of the survival function using the product-limit formula. Pointwise 95% confidence intervals computed via the Greenwood formula on the complementary log-log scale. Subgroup comparisons performed with the log-rank test.
+Non-parametric estimation of the survival function using the product-limit formula. Pointwise 95% confidence intervals computed via the Greenwood formula on the complementary log-log scale. Subgroup comparisons performed with the log-rank test. Cross-validated with `lifelines.KaplanMeierFitter` and `NelsonAalenFitter`.
 
 ### 2. Cox Proportional Hazards Model
 Semi-parametric model of the form:
 
 $$h(t \mid x) = h_0(t) \cdot \exp(\beta_1 x_1 + \cdots + \beta_p x_p)$$
 
-Parameters estimated by maximizing the partial log-likelihood via L-BFGS-B optimization. Standard errors derived from the numerical Hessian. Baseline hazard estimated using the Breslow estimator. Model performance assessed via the concordance index (C-statistic).
+Parameters estimated by maximizing the partial log-likelihood via L-BFGS-B optimization. Standard errors derived from the numerical Hessian. Baseline hazard estimated using the Breslow estimator. Model performance assessed via the concordance index (C-statistic). Cross-validated with `lifelines.CoxPHFitter`.
 
 Proportional hazards assumption checked using:
 - Schoenfeld residual plots vs. event time
 - Log-minus-log KM plots
 
 ### 3. Weibull Parametric Model
-Fitted to the marginal survival distribution via maximum likelihood. Shape parameter $\hat{k} = 1.2715$ (monotonically increasing hazard), scale parameter $\hat{\lambda} = 2259.9$ days. Fit evaluated via the Weibull probability plot (log cumulative hazard vs. log time).
+Fitted to the marginal survival distribution via maximum likelihood. Shape parameter $\hat{k} = 1.2715$ (monotonically increasing hazard), scale parameter $\hat{\lambda} = 2259.9$ days. Fit evaluated via the Weibull probability plot (log cumulative hazard vs. log time). Cross-validated with `lifelines.WeibullAFTFitter`.
+
+### 4. Machine Learning Survival Models
+Applied via `scikit-survival` for comparison against the classical Cox PH model:
+- **Random Survival Forest** — ensemble tree-based model for non-linear survival prediction
+- **Gradient Boosting Survival Analysis** — gradient boosting adapted for censored time-to-event data
+- Feature importances extracted from the Random Survival Forest to rank prognostic variables
 
 ---
 
@@ -186,6 +192,8 @@ breast-cancer-survival-analysis/
 | Pandas | Data manipulation |
 | Matplotlib / Seaborn | Visualization |
 | L-BFGS-B | Cox PH partial likelihood optimization |
+| lifelines | KM, Nelson-Aalen, Cox PH, Weibull AFT (cross-validation) |
+| scikit-survival | Random Survival Forest, Gradient Boosting Survival |
 | R / RStudio | Original GBSG2 dataset source (exported to CSV) |
 
 ---
@@ -197,7 +205,3 @@ breast-cancer-survival-analysis/
 - The Weibull model was fit to the **marginal survival distribution without covariates** — a full parametric regression would allow direct comparison with the Cox model.
 - Dataset is restricted to **node-positive patients** and may not generalize to node-negative breast cancer populations.
 - Potential confounders not in the dataset (chemotherapy regimen, comorbidities) may affect observed associations.
-
----
-
-*Spring 2026 · STA 6903 Survival Analysis · The University of Texas at San Antonio*
